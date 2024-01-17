@@ -3,6 +3,8 @@ project(lmdb VERSION 1.0
         DESCRIPTION "Lightning Memory-Mapped Database"
         LANGUAGES C)
 
+include(CTest)
+
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}" ${CMAKE_MODULE_PATH})
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
@@ -40,6 +42,8 @@ add_compile_options(
   $<$<CONFIG:DEBUG>:-pthread>
 )
 
+include_directories("${PROJECT_SOURCE_DIR}")
+
 add_library(lmdb INTERFACE)
 target_sources(lmdb INTERFACE "lmdb.h" "mdb.c" "midl.c")
 target_compile_definitions(lmdb INTERFACE MDB_USE_POSIX_MUTEX=1 MDB_FDATASYNC_WORKS=1 MDB_USE_PWRITEV=1 MDB_USE_ROBUST=1)
@@ -56,3 +60,6 @@ target_link_libraries(mdb_copy PRIVATE lmdb)
 target_link_libraries(mdb_dump PRIVATE lmdb)
 target_link_libraries(mdb_load PRIVATE lmdb)
 target_link_libraries(mdb_drop PRIVATE lmdb)
+
+enable_testing()
+add_subdirectory(tests)
