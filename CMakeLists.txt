@@ -46,7 +46,12 @@ include_directories("${PROJECT_SOURCE_DIR}")
 
 add_library(lmdb INTERFACE)
 target_sources(lmdb INTERFACE "lmdb.h" "mdb.c" "midl.c")
-target_compile_definitions(lmdb INTERFACE MDB_USE_POSIX_MUTEX=1 MDB_FDATASYNC_WORKS=1 MDB_USE_PWRITEV=1 MDB_USE_ROBUST=1)
+target_compile_definitions(lmdb INTERFACE MDB_USE_POSIX_MUTEX=1)
+target_compile_definitions(lmdb INTERFACE MDB_FDATASYNC_WORKS=1)
+target_compile_definitions(lmdb INTERFACE MDB_USE_PWRITEV=1)
+target_compile_definitions(lmdb INTERFACE MDB_USE_ROBUST=1)
+target_compile_definitions(lmdb INTERFACE MDB_USE_ROBUST=1)
+target_compile_definitions(lmdb INTERFACE MDB_MAXKEYSIZE=0)
 target_link_libraries(lmdb INTERFACE c rt)
 
 # add_executable(mdb_stat "mdb_stat.c")
